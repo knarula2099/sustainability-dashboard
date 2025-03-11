@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Event Sustainability Dashboard</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #f5f7fa;
+      padding: 20px;
+    }
+    
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    
+    .chart-container {
+      background-color: #f9fafb;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1f2937;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+    
+    .footer {
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 24px;
+    }
+    
+    .insight-box {
+      background-color: #f3f4f6;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    
+    .insight-box ul {
+      padding-left: 20px;
+    }
+    
+    .insight-box li {
+      margin-bottom: 8px;
+    }
+    
+    .progress-bar {
+      height: 24px;
+      background-color: #e5e7eb;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background-color: #10b981;
+      border-radius: 9999px;
+    }
+    
+    .chart {
+      margin: 20px 0;
+    }
+    
+    .bar-chart .bar {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .bar-chart .bar-label {
+      width: 150px;
+      padding-right: 10px;
+      text-align: right;
+      font-size: 14px;
+    }
+    
+    .bar-chart .bar-container {
+      flex-grow: 1;
+      background-color: #e5e7eb;
+      height: 24px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .bar-chart .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+    
+    .bar-chart .bar-value {
+      margin-left: 10px;
+      font-weight: bold;
+      min-width: 30px;
+    }
+    
+    .pie-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .pie-segments {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 15px;
+    }
+    
+    .pie-segment {
+      display: flex;
+      align-items: center;
+      margin: 5px 10px;
+    }
+    
+    .pie-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+    
+    .pie-visual {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #0088FE 0% 37.5%,
+        #00C49F 37.5% 100%
+      );
+      margin: 20px 0;
+    }
+    
+    .pie-visual-percentage {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 20px 0;
+    }
+    
+    .importance-rating {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .big-number {
+      font-size: 72px;
+      font-weight: bold;
+      color: #10b981;
+    }
+    
+    .data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .data-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="text-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">Campus Event Sustainability Survey Results</h1>
+      <p class="text-gray-600">Analysis of 24 respondents' attitudes and practices toward sustainable event planning</p>
+    </div>
+    
+    <div class="data-grid mb-6">
+      <!-- Respondent Breakdown -->
+      <div class="chart-container">
+        <h2>Respondent Breakdown</h2>
+        <div class="pie-chart">
+          <div class="pie-visual" style="background: conic-gradient(#0088FE 0% 37.5%, #00C49F 37.5% 100%);"></div>
+          <div class="pie-segments">
+            <div class="pie-segment">
+              <div class="pie-color" style="background-color: #0088FE;"></div>
+              <span>Event host: 37.5% (9)</span>
+            </div>
+            <div class="pie-segment">
+              <div class="pie-color" style="background-color: #00C49F;"></div>
+              <span>Event attendee: 62.5% (15)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Importance of Sustainability -->
+      <div class="chart-container">
+        <h2>Importance of Sustainability</h2>
+        <div class="importance-rating">
+          <div class="big-number">3.2</div>
+          <p class="text-gray-600 text-center">Average importance rating (out of 5)</p>
+          <div class="w-full progress-bar mt-4">
+            <div class="progress-fill" style="width: 64%;"></div>
+          </div>
+          <div class="w-full flex justify-between mt-1">
+            <span class="text-xs text-gray-500">Not Important</span>
+            <span class="text-xs text-gray-500">Very Important</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barriers to Sustainable Practices -->
+    <div class="chart-container mb-6">
+      <h2>Barriers to Sustainable Practices</h2>
+      <div class="bar-chart">
+        <div class="bar">
+          <div class="bar-label">Too expensive</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 100%; background-color: #82ca9d;"></div>
+          </div>
+          <div class="bar-value">7</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">Attendees don't care</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 100%; background-color: #82ca9d;"></div>
+          </div>
+          <div class="bar-value">7</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">Lack of campus resources</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 57%; background-color: #82ca9d;"></div>
+          </div>
+          <div class="bar-value">4</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">composting bins</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 57%; background-color: #82ca9d;"></div>
+          </div>
+          <div class="bar-value">4</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">Too time-consuming</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 29%; background-color: #82ca9d;"></div>
+          </div>
+          <div class="bar-value">2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-grid mb-6">
+      <!-- Current Sustainable Practices -->
+      <div class="chart-container">
+        <h2>Current Sustainable Practices</h2>
+        <div class="bar-chart">
+          <div class="bar">
+            <div class="bar-label">Donating leftover food</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 100%; background-color: #0088FE;"></div>
+            </div>
+            <div class="bar-value">6</div>
+          </div>
+          <div class="bar">
+            <div class="bar-label">Reusable plates/cups</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 67%; background-color: #0088FE;"></div>
+            </div>
+            <div class="bar-value">4</div>
+          </div>
+          <div class="bar">
+            <div class="bar-label">Digital innovations</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 67%; background-color: #0088FE;"></div>
+            </div>
+            <div class="bar-value">4</div>
+          </div>
+          <div class="bar">
+            <div class="bar-label">Composting bins</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 17%; background-color: #0088FE;"></div>
+            </div>
+            <div class="bar-value">1</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Materials Used for Events -->
+      <div class="chart-container">
+        <h2>Materials Used for Events</h2>
+        <div class="bar-chart">
+          <div class="bar">
+            <div class="bar-label">Reusable items/fabric</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 100%; background-color: #FFBB28;"></div>
+            </div>
+            <div class="bar-value">6</div>
+          </div>
+          <div class="bar">
+            <div class="bar-label">Paper/recyclable</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 67%; background-color: #FFBB28;"></div>
+            </div>
+            <div class="bar-value">4</div>
+          </div>
+          <div class="bar">
+            <div class="bar-label">Plastic/vinyl banners</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 67%; background-color: #FFBB28;"></div>
+            </div>
+            <div class="bar-value">4</div>
+          </div>
+          <div class="bar">
+            <div class="bar-label">Digital displays</div>
+            <div class="bar-container">
+              <div class="bar-fill" style="width: 50%; background-color: #FFBB28;"></div>
+            </div>
+            <div class="bar-value">3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="data-grid mb-6">
+      <!-- Would Pay More for Sustainable Events? -->
+      <div class="chart-container">
+        <h2>Would Pay More for Sustainable Events?</h2>
+        <div class="pie-chart">
+          <div class="pie-visual" style="background: conic-gradient(#0088FE 0% 73%, #00C49F 73% 100%);"></div>
+          <div class="pie-segments">
+            <div class="pie-segment">
+              <div class="pie-color" style="background-color: #0088FE;"></div>
+              <span>Yes: 73% (11)</span>
+            </div>
+            <div class="pie-segment">
+              <div class="pie-color" style="background-color: #00C49F;"></div>
+              <span>No: 27% (4)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- How Much More Would They Pay? -->
+      <div class="chart-container">
+        <h2>How Much More Would They Pay?</h2>
+        <div class="pie-chart">
+          <div class="pie-visual" style="background: conic-gradient(#FFBB28 0% 67%, #FF8042 67% 87%, #8884d8 87% 100%);"></div>
+          <div class="pie-segments">
+            <div class="pie-segment">
+              <div class="pie-color" style="background-color: #FFBB28;"></div>
+              <span>5-10%: 67% (10)</span>
+            </div>
+            <div class="pie-segment">
+              <div class="pie-color" style="background-color: #FF8042;"></div>
+              <span>0%: 20% (3)</span>
+            </div>
+            <div class="pie-segment">
+              <div class="pie-color" style="background-color: #8884d8;"></div>
+              <span>11-15%: 13% (2)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- What Would Motivate Event Planners? -->
+    <div class="chart-container mb-6">
+      <h2>What Would Motivate Event Planners? (Lower Rank is Better)</h2>
+      <div class="bar-chart">
+        <div class="bar">
+          <div class="bar-label">Attendee demand</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 53%; background-color: #FF8042;"></div>
+          </div>
+          <div class="bar-value">2.67</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">Peer recognition</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 58%; background-color: #FF8042;"></div>
+          </div>
+          <div class="bar-value">2.89</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">Funding Incentives</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 60%; background-color: #FF8042;"></div>
+          </div>
+          <div class="bar-value">3.00</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">Simplified guidelines</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 62%; background-color: #FF8042;"></div>
+          </div>
+          <div class="bar-value">3.11</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label">Campus Policies</div>
+          <div class="bar-container">
+            <div class="bar-fill" style="width: 67%; background-color: #FF8042;"></div>
+          </div>
+          <div class="bar-value">3.33</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Key Insights -->
+    <div class="insight-box">
+      <h2>Key Insights</h2>
+      <ul class="list-disc pl-5 space-y-2 text-gray-700">
+        <li><strong>Top barriers</strong> to sustainable practices are cost concerns and perception that attendees don't care</li>
+        <li><strong>73% of attendees</strong> would pay more for sustainable events, primarily in the 5-10% range</li>
+        <li><strong>Attendee demand</strong> is the top motivator for event hosts to prioritize sustainability</li>
+        <li>Current sustainable practices are limited, with <strong>food donation</strong> being the most common</li>
+        <li>Event hosts need <strong>better resources and guidelines</strong> to implement sustainable practices</li>
+      </ul>
+    </div>
+    
+    <div class="footer">
+      <p>Campus Event Organizer Sustainability Survey | 24 Respondents | Q1 2025</p>
+    </div>
+  </div>
+</body>
+</html>
